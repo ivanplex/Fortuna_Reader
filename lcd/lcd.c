@@ -183,6 +183,10 @@ void clear_screen() {
     fill_rectangle(r, display.background);
 }
 
+void moveup(){
+    display.y = -4;
+}
+
 
 void display_char(char c) {
     uint16_t x, y;

@@ -1,0 +1,3 @@
+avr-gcc -mmcu=at90usb1286 -DF_CPU=8000000 -Wall -Os main.c -o main.elf
+
+avr-objcopy -O ihex main.elf main.hex

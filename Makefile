@@ -43,8 +43,8 @@ OBJFILES     += $(patsubst %.cpp,$(BUILD_DIR)/%.o,$(notdir $(CPPFILES)))
 upld: $(BUILD_DIR)/main.hex
 	$(info )
 	$(info =========== ${BOARD} =============)
-	dfu-programmer $(MCU) erase --force
-	dfu-programmer $(MCU) flash --force $(BUILD_DIR)/main.hex
+	dfu-programmer $(MCU) erase
+	dfu-programmer $(MCU) flash $(BUILD_DIR)/main.hex
 	dfu-programmer $(MCU) start
 
 prom: $(BUILD_DIR)/main.eep upld
