@@ -4,11 +4,19 @@
 #include "lcd.h"
 #include <util/delay.h>
 #include <string.h>
+#include <linebuffer.h>
 
 
 #define STR_MAX 254
 
+#define FILE_LINE_MAX 100
+
+char lineBuffer[][100];
+int current_line_number = 0;
+
 void init(void);
+
+void screendump(char linelist[][100]);
 
 void display_word(char *str);
 
@@ -17,7 +25,7 @@ void display_aline(char *str);
 void main(void) {
     init();
 
-    while(1){
+    /*while(1){
         println("1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890", LIGHT_CYAN);
         println("1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890", LIME);
         println("Don't stop here, keep writing!", PURPLE);
@@ -30,7 +38,12 @@ void main(void) {
         _delay_ms(1500);
         clear_screen();
         //moveup();
-    }
+    }*/
+
+    strcpy(lineBuffer[0], "1234567890");
+    strcpy(lineBuffer[1], "The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).");
+    
+    screendump(lineBuffer);
 
 }
 
@@ -53,6 +66,19 @@ void println(char *input, uint16_t color){
 }
 
 /**
+ * Print everything from the line buffer
+ */
+void screendump(char buffer[][100]){
+    uint8_t i;
+
+    for(i=0; i<2; i++){ 
+        display_aline(buffer[i]);
+        display_char('\n');
+        //_delay_ms(10);
+    }
+}
+
+/**
  * Display a line in a way which no word would be split because of the size of the screen
  * @param str   Input line in char array
  */
@@ -61,10 +87,14 @@ void display_aline(char *str){
     uint8_t max_line_length = 255;
     uint8_t char_width = 6; //5 for the character + 1 for space between characters
     uint8_t word_width = 0;
-    char s[STR_MAX+1];
 
 
+    char s[STR_MAX+1];      //Copy input String
     strncpy(s,str,STR_MAX);
+
+    //TODO
+    //char *lineBuffer;
+    //lines[current_line_number] = lineBuffer;
 
     char *pch;
     pch = strtok (s," ");
@@ -78,8 +108,13 @@ void display_aline(char *str){
             current_line_length = 0;    //Reset current line length
         }
 
+
         display_word (pch);
         display_char(' ');    //Insert the space back after word being splited by space
+
+        //Add word
+        //
+
         pch = strtok (NULL, " ");
         current_line_length = current_line_length + word_width; //Update current word width
     }
