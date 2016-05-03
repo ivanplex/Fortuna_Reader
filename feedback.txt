@@ -1,14 +1,14 @@
 # really easy (0) <----> (10) very hard  <Integer 0-10>: 
-:Difficulty: 1
+:Difficulty: 10
 
 # little (0)   <---->  (10) much more than 3 h <Integer 0-10>:
-:Time invested: 8
+:Time invested: 10
 
 # none (0)   <---->  (10) a lot  <Integer 0-10>:
-:Help received: 2
+:Help received: 4
 
 # no idea (0)  <---->  (10) confident  <Integer 0-10>:
-:Understanding now: 9
+:Understanding now: 7
 
 # Describe your impression of this task in one word!  <word [a-z]>:
-:In a word: pikachu
+:In a word: exam
