@@ -17,6 +17,8 @@ void screendump(char linelist[][100]);
 
 void display_word(char *str);
 
+void drawfooter();
+
 void main(void) {
     init();
 
@@ -42,10 +44,15 @@ void main(void) {
     println("Don't stop here, keep doing!", LIME);
     println("Don't stop here, keep working!", RED);
     //println("", LIME);
-    //println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", LIME);
+    println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", LIME);
+    println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", LIME);
+    println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", LIME);
+    println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", LIME);
+    println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", LIME);
+    println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", LIME);
     //println("Don't stop here, keep writing!", BLUE);
-
-    screendump(lineBuffer);
+    //
+    drawfooter();
 
 }
 
@@ -66,19 +73,6 @@ void println(char *input, uint16_t color){
 
 }
 
-/**
- * Print everything from the line buffer
- */
-void screendump(char buffer[][100]){
-    uint8_t i;
-
-    for(i=0; i<20; i++){ 
-        display_word(buffer[i]);
-        display_char('\n');
-        //_delay_ms(10);
-    }
-}
-
 
 
 
@@ -91,6 +85,7 @@ void display_word(char *str) {
 
     for(i=0; str[i]; i++){ 
         display_char(str[i]);
-        _delay_ms(10);
+        //_delay_ms(10);
     }
+    //display_char('\n');
 }

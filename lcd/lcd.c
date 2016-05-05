@@ -12,6 +12,7 @@
 #include "font.h"
 #include "ili934x.h"
 #include "lcd.h"
+#include "config.h"
 
 lcd display;
 
@@ -187,6 +188,16 @@ void moveup(){
     display.y = -4;
 }
 
+void forceleft(){
+    display.x=0;
+    return;
+}
+
+void drawfooter(){
+    rectangle r = {0, display.width-1, (SCREEN_DEMENSION_Y - STATUS_BAR_HEIGHT), display.height-1};
+    fill_rectangle(r, BLUE);
+}
+
 
 void display_char(char c) {
     uint16_t x, y;
@@ -194,12 +205,17 @@ void display_char(char c) {
     uint8_t bits, mask;
     uint16_t sc=display.x, ec=display.x + 4, sp=display.y, ep=display.y + 7;
 
+    /* Do not overwrite the status bar */
+    if(display.y > (SCREEN_DEMENSION_Y - STATUS_BAR_HEIGHT)){
+        return;
+    }
+
     /*   New line starts a new line, or if the end of the
          display has been reached, clears the display. 
     */
     if (c == '\n') { 
         display.x=0; display.y+=8;
-        if (display.y >= display.height) { clear_screen(); }
+        //if (display.y >= display.height) { clear_screen(); }      //DO NOT OVERWRITE
         return;
     }
 
