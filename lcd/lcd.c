@@ -191,10 +191,6 @@ void clear_scroll_area() {
     fill_rectangle(r, display.background);
 }
 
-void moveup(){
-    display.y = -4;
-}
-
 void forceleft(){
     display.x=0;
     return;
@@ -203,6 +199,11 @@ void forceleft(){
 void drawfooter(){
     rectangle r = {0, display.width-1, (SCREEN_DEMENSION_Y - STATUS_BAR_HEIGHT), display.height-1};
     fill_rectangle(r, STATUS_BAR_BACKGROUND_COLOR);
+}
+
+void move_to_footer(){
+    display.x = 0;
+    display.y = 225;
 }
 
 
