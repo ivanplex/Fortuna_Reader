@@ -184,6 +184,13 @@ void clear_screen() {
     fill_rectangle(r, display.background);
 }
 
+void clear_scroll_area() {
+    display.x = 0;
+    display.y = 0;
+    rectangle r = {0, display.width-1, 0, ((SCREEN_DEMENSION_Y - STATUS_BAR_HEIGHT)-1)};
+    fill_rectangle(r, display.background);
+}
+
 void moveup(){
     display.y = -4;
 }
@@ -195,7 +202,7 @@ void forceleft(){
 
 void drawfooter(){
     rectangle r = {0, display.width-1, (SCREEN_DEMENSION_Y - STATUS_BAR_HEIGHT), display.height-1};
-    fill_rectangle(r, BLUE);
+    fill_rectangle(r, STATUS_BAR_BACKGROUND_COLOR);
 }
 
 
@@ -206,7 +213,7 @@ void display_char(char c) {
     uint16_t sc=display.x, ec=display.x + 4, sp=display.y, ep=display.y + 7;
 
     /* Do not overwrite the status bar */
-    if(display.y > (SCREEN_DEMENSION_Y - STATUS_BAR_HEIGHT)){
+    if(display.y >= ((SCREEN_DEMENSION_Y - STATUS_BAR_HEIGHT)-6)){
         return;
     }
 

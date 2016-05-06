@@ -18,41 +18,39 @@ void screendump(char linelist[][100]);
 void display_word(char *str);
 
 void drawfooter();
+void clear_scroll_area();
+
+int original_skip_line = 0;
 
 void main(void) {
     init();
 
-    /*while(1){
-        println("1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890", LIGHT_CYAN);
-        println("1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890", LIME);
-        println("Don't stop here, keep writing!", PURPLE);
-        println("", LIME);
-        println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", LIME);
-        println("Don't stop here, keep writing!", BLUE);
-        println("Don't stop here, keep writing!", WHITE);
-        println("12345678901234567890 1234567890 12345678901234567890 1234567890 12345678901234567890", ORANGE);
+    display_color(BLACK, WHITE);
+    clear_screen();
 
-        _delay_ms(1500);
-        clear_screen();
-        //moveup();
-    }*/
-
-    //strcpy(lineBuffer[0], "1234567890");
-    //strcpy(lineBuffer[1], "The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).");
-    
-    println("Don't stop here, keep writing!", ORANGE);
-    println("Don't stop here, keep doing!", LIME);
-    println("Don't stop here, keep working!", RED);
-    //println("", LIME);
-    println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", LIME);
-    println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", LIME);
-    println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", LIME);
-    println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", LIME);
-    println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", LIME);
-    println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", LIME);
-    //println("Don't stop here, keep writing!", BLUE);
-    //
     drawfooter();
+
+    while(1){    
+        clear_scroll_area();
+
+        println("Don't stop here, keep writing!", ORANGE);
+        println("Don't stop here, keep doing!", LIME);
+        //println("Don't stop here, keep working!", RED);
+        //println("", LIME);
+        println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", BLACK);
+        println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", GREEN);
+        println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", BROWN);
+        println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", BLACK);
+        println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", BROWN);
+        println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", BLACK);
+        println("Don't stop here, keep writing!", BLUE);
+        
+
+        _delay_ms(1000);
+        original_skip_line ++;
+        line_skip = original_skip_line;
+    }
+    
 
 }
 
@@ -67,7 +65,7 @@ void init(void) {
 
 void println(char *input, uint16_t color){
 
-    display_color(color, BLACK);    //Black Background color
+    display_color(color, WHITE);    //Black Background color
     buffer_aline(input);
     //display_string(input);
 
