@@ -20,7 +20,7 @@ void display_word(char *str);
 void drawfooter();
 void clear_scroll_area();
 
-int original_skip_line = 0;
+int set_skip_line = 0;
 
 void main(void) {
     init();
@@ -47,8 +47,13 @@ void main(void) {
         
 
         _delay_ms(1000);
-        original_skip_line ++;
-        line_skip = original_skip_line;
+
+        set_skip_line ++;
+        if(set_skip_line >= line_produced){
+            println("END OF FILE", BLUE);
+        }else{
+            line_skip = set_skip_line;
+        }
     }
     
 
