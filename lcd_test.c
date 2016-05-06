@@ -23,8 +23,6 @@ volatile int8_t delta;
 
 void init(void);
 
-void screendump(char linelist[][100]);
-
 void display_word(char *str);
 
 /* lcd.c */
@@ -34,9 +32,9 @@ void clear_scroll_area();
 /* footer.h */
 void show_end_of_file();
 
-int set_skip_line = 0;
+uint16_t set_skip_line = 0;
 
-void main(void) {
+int main(void) {
     init();
 
     display_color(BLACK, WHITE);
@@ -50,6 +48,8 @@ void main(void) {
         clear_scroll_area();
 
         println("Don't stop here, keep writing!", ORANGE);
+        println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", GREEN);
+        println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", BROWN);
         println("Don't stop here, keep doing!", LIME);
         //println("Don't stop here, keep working!", RED);
         //println("", LIME);
@@ -65,39 +65,47 @@ void main(void) {
         _delay_ms(1000);
 
         
-        if(set_skip_line >= line_produced){
+        /*if(set_skip_line >= line_produced){
             show_end_of_file();
         }else{
             set_skip_line ++;
             line_skip = set_skip_line;
-        }
+        }*/
     //}
     
     uint8_t cnt = 0;
-    uint8_t i;
     int16_t res;
     
     /* ENABLE GLOBAL INTERRUPTS HERE */ 
     sei();
 
     for (;;) {
-        /*for (i=cnt; i > 0; --i) {
-           _delay_ms(STEP_DELAY_MS);
-           res = cnt + enc_delta();
-           if (res > MAX_STEP) {
-               cnt = MAX_STEP;
-           } else if (res < MIN_STEP) {
-               cnt = MIN_STEP;
-           } else {
-               cnt = res;              
-           }
-        }*/
         _delay_ms(STEP_DELAY_MS);
         res = cnt + enc_delta();
-        if(res > 0){
-            println("BACK", ORANGE);
-        }else if(res < 0){
-            println("FORWARD", LIME);
+        if(res > 0){    //Scroll backward
+            //println("BACK", ORANGE);
+
+            if(set_skip_line > 0){
+                set_skip_line --;
+                line_skip = set_skip_line;
+            }
+            clear_scroll_area();
+            println("Don't stop here, keep writing!", ORANGE);
+            println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", GREEN);
+            println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", BROWN);
+            println("Don't stop here, keep doing!", LIME);
+        }else if(res < 0){  //Scroll forward
+            //println("FORWARD", LIME);
+            
+            if(set_skip_line < 100){
+                set_skip_line ++;
+                line_skip = set_skip_line;
+            }
+            clear_scroll_area();
+            println("Don't stop here, keep writing!", ORANGE);
+            println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", GREEN);
+            println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", BROWN);
+            println("Don't stop here, keep doing!", LIME);
         }else{
             cnt = res;
         }
