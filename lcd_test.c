@@ -41,53 +41,14 @@ uint16_t set_skip_line = 0;
 int main(void) {
     init();
 
+    uint8_t toWrite [15] = "Testing Testing";
+    eeprom_write_block((void*)toWrite , (const void*)12, 10);
 
-    /* Init Screen Color */
-    display_color(BLACK, WHITE);
-    clear_screen();
+    uint8_t StringOfData [15];
+    eeprom_read_block((void*)StringOfData , (const void*)12, 10);
 
-    /* Init footer */
-    drawfooter();
-    //show_end_of_file();
+    display_word(StringOfData);
     
-
-    clear_scroll_area();
-    show_content();
-
-    
-    uint8_t cnt = 0;
-    int16_t res;
-    
-    /* ENABLE GLOBAL INTERRUPTS HERE */ 
-    sei();
-
-    for (;;) {
-        _delay_ms(STEP_DELAY_MS);
-        res = cnt + enc_delta();
-        if(res > 0){    //Scroll backward
-
-
-            if(set_skip_line > 0){
-                set_skip_line --;
-                line_skip = set_skip_line;
-                clear_scroll_area();
-                show_content();
-            }
-        }else if(res < 0){  //Scroll forward
-
-            if(get_y_position() > END_OF_FILE_Y_POSITION){
-                set_skip_line ++;
-                line_skip = set_skip_line;
-                clear_scroll_area();
-                show_content();
-            }
-            
-        }else{
-            cnt = res;
-        }
-        PINB |= _BV(PINB7);   /* toggle LED */
-
-    }
 
     return 0;
     
