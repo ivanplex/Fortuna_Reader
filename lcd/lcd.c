@@ -206,6 +206,10 @@ void move_to_footer(){
     display.y = 225;
 }
 
+uint16_t get_y_position(){
+    return display.y;
+}
+
 
 void display_char(char c) {
     uint16_t x, y;

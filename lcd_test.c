@@ -1,10 +1,9 @@
-/* COMP2215 15/16: Task 02 */
-
 #include <avr/io.h>
 #include "lcd.h"
 #include <util/delay.h>
 #include <string.h>
 #include <linebuffer.h>
+#include <scrollbar.h>
 #include <footer.h>
 
 #include <stdio.h>
@@ -13,21 +12,26 @@
 #include <avr/interrupt.h>
 
 
+
+#include <avr/eeprom.h>
+
+
+
 int8_t enc_delta(void);
 volatile int8_t delta;
 
 
-#define STR_MAX 254
-
-
 
 void init(void);
+
+int show_content();
 
 void display_word(char *str);
 
 /* lcd.c */
 void drawfooter();
 void clear_scroll_area();
+uint16_t get_y_position();
 
 /* footer.h */
 void show_end_of_file();
@@ -37,41 +41,19 @@ uint16_t set_skip_line = 0;
 int main(void) {
     init();
 
+
+    /* Init Screen Color */
     display_color(BLACK, WHITE);
     clear_screen();
 
+    /* Init footer */
     drawfooter();
-
     //show_end_of_file();
+    
 
-    //while(1){    
-        clear_scroll_area();
+    clear_scroll_area();
+    show_content();
 
-        println("Don't stop here, keep writing!", ORANGE);
-        println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", GREEN);
-        println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", BROWN);
-        println("Don't stop here, keep doing!", LIME);
-        //println("Don't stop here, keep working!", RED);
-        //println("", LIME);
-        /*println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", BLACK);
-        println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", GREEN);
-        println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", BROWN);
-        println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", BLACK);
-        println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", BROWN);
-        println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", BLACK);
-        println("Don't stop here, keep writing!", BLUE);*/
-        
-
-        _delay_ms(1000);
-
-        
-        /*if(set_skip_line >= line_produced){
-            show_end_of_file();
-        }else{
-            set_skip_line ++;
-            line_skip = set_skip_line;
-        }*/
-    //}
     
     uint8_t cnt = 0;
     int16_t res;
@@ -83,29 +65,23 @@ int main(void) {
         _delay_ms(STEP_DELAY_MS);
         res = cnt + enc_delta();
         if(res > 0){    //Scroll backward
-            //println("BACK", ORANGE);
+
 
             if(set_skip_line > 0){
                 set_skip_line --;
                 line_skip = set_skip_line;
+                clear_scroll_area();
+                show_content();
             }
-            clear_scroll_area();
-            println("Don't stop here, keep writing!", ORANGE);
-            println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", GREEN);
-            println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", BROWN);
-            println("Don't stop here, keep doing!", LIME);
         }else if(res < 0){  //Scroll forward
-            //println("FORWARD", LIME);
-            
-            if(set_skip_line < 100){
+
+            if(get_y_position() > END_OF_FILE_Y_POSITION){
                 set_skip_line ++;
                 line_skip = set_skip_line;
+                clear_scroll_area();
+                show_content();
             }
-            clear_scroll_area();
-            println("Don't stop here, keep writing!", ORANGE);
-            println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", GREEN);
-            println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", BROWN);
-            println("Don't stop here, keep doing!", LIME);
+            
         }else{
             cnt = res;
         }
@@ -118,6 +94,26 @@ int main(void) {
 
 }
 
+int show_content(){
+    println("Don't stop here, keep writing!", ORANGE);
+    println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", GREEN);
+    println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", BROWN);
+    println("Don't stop here, keep doing!", LIME);
+    println("Don't stop here, keep writing!", ORANGE);
+    println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", GREEN);
+    println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", BROWN);
+    println("Don't stop here, keep doing!", LIME);
+    println("Don't stop here, keep writing!", ORANGE);
+    println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", GREEN);
+    println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", BROWN);
+    println("Don't stop here, keep doing!", LIME);
+
+    draw_scroll_bar(line_skip, line_compiled);
+    line_compiled = 0; //Reset Line compiled
+
+
+    return 0;
+}
 
 void init(void) {
     /* 8MHz clock, no prescaling (DS, p. 48) */
@@ -199,7 +195,7 @@ void display_word(char *str) {
 
 
 
- ISR( TIMER0_COMPA_vect ) {
+ISR( TIMER0_COMPA_vect ) {
      static int8_t last;
      int8_t new, diff;
      uint8_t wheel;
