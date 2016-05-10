@@ -3,6 +3,7 @@
 #include <util/delay.h>
 #include <string.h>
 #include <linebuffer.h>
+#include <EEPROMHandler.h>
 #include <scrollbar.h>
 #include <footer.h>
 
@@ -13,41 +14,74 @@
 
 
 
-#include <avr/eeprom.h>
-
-
-
 int8_t enc_delta(void);
 volatile int8_t delta;
 
 
 
-void init(void);
+void init(void){
+
+    init_screen();
+    init_rotary();
+
+    /* Init Screen Color */
+    display_color(foreground_color, background_color);
+    clear_screen();
+
+    /* Init footer */
+    drawfooter();
+    //show_end_of_file();
+    
+
+    clear_scroll_area();
+    show_content();
+}
 
 int show_content();
-
 void display_word(char *str);
 
-/* lcd.c */
-void drawfooter();
-void clear_scroll_area();
-uint16_t get_y_position();
-
-/* footer.h */
-void show_end_of_file();
 
 uint16_t set_skip_line = 0;
 
 int main(void) {
     init();
 
-    uint8_t toWrite [15] = "Testing Testing";
-    eeprom_write_block((void*)toWrite , (const void*)12, 10);
+    
 
-    uint8_t StringOfData [15];
-    eeprom_read_block((void*)StringOfData , (const void*)12, 10);
+    
+    uint8_t cnt = 0;
+    int16_t res;
+    
+    /* ENABLE GLOBAL INTERRUPTS HERE */ 
+    sei();
 
-    display_word(StringOfData);
+    for (;;) {
+        _delay_ms(STEP_DELAY_MS);
+        res = cnt + enc_delta();
+        if(res > 0){    //Scroll backward
+
+
+            if(set_skip_line > 0){
+                set_skip_line --;
+                line_skip = set_skip_line;
+                clear_scroll_area();
+                show_content();
+            }
+        }else if(res < 0){  //Scroll forward
+
+            if(get_y_position() > END_OF_FILE_Y_POSITION){
+                set_skip_line ++;
+                line_skip = set_skip_line;
+                clear_scroll_area();
+                show_content();
+            }
+            
+        }else{
+            cnt = res;
+        }
+        PINB |= _BV(PINB7);   /* toggle LED */
+
+    }
     
 
     return 0;
@@ -56,34 +90,38 @@ int main(void) {
 }
 
 int show_content(){
-    println("Don't stop here, keep writing!", ORANGE);
-    println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", GREEN);
-    println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", BROWN);
-    println("Don't stop here, keep doing!", LIME);
-    println("Don't stop here, keep writing!", ORANGE);
-    println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", GREEN);
-    println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", BROWN);
-    println("Don't stop here, keep doing!", LIME);
-    println("Don't stop here, keep writing!", ORANGE);
-    println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", GREEN);
-    println("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).", BROWN);
-    println("Don't stop here, keep doing!", LIME);
+    buffer_aline("Don't stop here, keep writing!");
+    buffer_aline("The question is: ^bA145 the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).");
+    buffer_aline("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).");
+    buffer_aline("Don't stop here, keep doing!");
+    buffer_aline("Don't stop here, keep writing!");
+    buffer_aline("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).");
+    buffer_aline("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).");
+    buffer_aline("Don't stop here, keep doing!");
+    buffer_aline("Don't stop here, keep writing!");
+    buffer_aline("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).");
+    buffer_aline("The question is: What happens if I were to mix types? For example if I know the multiplier a is always going to range from 0.0 to 1.0, it is tempting to make it an unsigned int q15 to get the extra bit of precision (and change the shift count to 15).");
+    buffer_aline("Don't stop here, keep doing!");
 
-    draw_scroll_bar(line_skip, line_compiled);
+    if(SCROLLBAR){
+        draw_scroll_bar(line_skip, line_compiled);
+    }
     line_compiled = 0; //Reset Line compiled
 
 
     return 0;
 }
 
-void init(void) {
+void init_screen(void){
     /* 8MHz clock, no prescaling (DS, p. 48) */
     CLKPR = (1 << CLKPCE);
     CLKPR = 0;
 
     init_lcd();
+}
 
-
+void init_rotary(void) {
+    
 
     /* Rotary */
 
@@ -123,13 +161,13 @@ void init(void) {
     TIMSK0 = _BV(OCIE0A); 
 }
 
-void println(char *input, uint16_t color){
+/*void println(char *input){
 
-    display_color(color, WHITE);    //Black Background color
+    //display_color(color, WHITE);    //Black Background color
     buffer_aline(input);
     //display_string(input);
 
-}
+}*/
 
 
 

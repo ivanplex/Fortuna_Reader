@@ -43,3 +43,7 @@ void display_color(uint16_t fg, uint16_t bg);
 void println(char *input, uint16_t color);
 void display_string_slowly(char *str);
 void display_backspace(void);
+
+void drawfooter();
+void clear_scroll_area();
+uint16_t get_y_position();

@@ -1,0 +1,7 @@
+
+=========== LaFortuna =============
+dfu-programmer at90usb1286 erase
+rm _build/main.elf
+
+=========== LaFortuna =============
+dfu-programmer at90usb1286 erase

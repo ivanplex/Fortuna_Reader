@@ -9,12 +9,17 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
-#include "font.h"
 #include "ili934x.h"
 #include "lcd.h"
 #include "config.h"
 
+/* Fonts */
+#include "font5x7.h"
+#include "hunter.h"
+
 lcd display;
+
+char*    font_style = FONT_P;
 
 void init_lcd() {
     /* Enable extended memory interface with 10 bit addressing */
@@ -232,7 +237,7 @@ void display_char(char c) {
     }
 
     if (c < 32 || c > 126) return;
-    fdata = (c - ' ')*5 + font5x7;
+    fdata = (c - ' ')*5 + font_style;
     write_cmd(PAGE_ADDRESS_SET);
     write_data16(sp);
     write_data16(ep);

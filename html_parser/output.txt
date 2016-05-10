@@ -1,0 +1,27 @@
+# T7: LAFORTUNA PROJECT I
+
+Read the instructions common to all tasks on the notes page - these are part of the description of this task.
+
+The aim for the remaining time of the module is to build either a library or an application for the LaFortuna. This coursework is spread over two tasks, each of which is worth 4 marks: Designing and implementing your library or application (T7) and Refining and Documenting your library or application (T8).
+
+You can choose freely what you would like to implement - take into account, however, how much time you have available next to your other obligations.
+
+If you do not have an idea what to build already, maybe one of the following suggestions can help:
+
+  * Think of something related to your hobbies
+  * Look back at games and software for the computers of the early 80's
+  * Adapt an existing AVR-, Arduino-, or other C- project for the LaFortuna * Maybe adapt the PacMan C++ code from here to the LaFortuna. (The code was adapted for IlMatto.).
+  * Maybe a shell but with a menu interface
+  * Think of what library you would have liked to have available, e.g., 
+    * a GUI Library or a Font Library
+    * a Sprite Library for games
+    * a Sound Library that plays music in abc notation.
+
+One challenge for your application idea may be is the user interface of the LaFortuna. Take a look at how the RockBox plugins have tackled this issue for a similar interface of an MP3 player. The list of pluigins may serve as further inspiration for projects.
+
+### Extra Work
+
+_Extra work, but no extra credit... only for very advanced students:_
+
+This the best project in the category "Embedded Library" and the best project in the category "Embedded Application" will be selected by a jury. All completed projects will be considered for this recognition and all very good projects will be considered for the five extra marks reserved for exceptional contributions to the module.
+
