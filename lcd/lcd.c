@@ -15,13 +15,16 @@
 #include "footer.h"
 
 
+
 /* Fonts */
 #include "font5x7.h"
 #include "hunter.h"
 
-char*    font_style = FONT_P;
+char*    font_style = "FONT_P";
+uint8_t  font_width = 5;
 
 lcd display;
+
 
 void init_lcd() {
     /* Enable extended memory interface with 10 bit addressing */
@@ -205,7 +208,17 @@ void forceleft(){
 }
 
 
+void set_current_font(char* f){
+    font_style = f;
+}
 
+char* get_current_font(){
+    return font_style;
+}
+
+int get_current_font_width(){
+    return font_width;
+}
 
 
 uint16_t get_y_position(){
@@ -214,10 +227,40 @@ uint16_t get_y_position(){
 
 
 void display_char(char c) {
+
+    char* font_data = font_style;
+    uint8_t font_width = 5;
+
+    if(strcmp(font_style, "FONT_P") == 0){
+        font_data = _FONT_P;
+        font_width = get_font_width("FONT_P");
+    }else if(strcmp(font_style, "FONT_BOLD") == 0){
+        font_data = _FONT_BOLD;
+        font_width = get_font_width("FONT_BOLD");
+    }else if(strcmp(font_style, "FONT_H1") == 0){
+        font_data = _FONT_H1;
+        font_width = get_font_width("FONT_H1");
+    }else if(strcmp(font_style, "FONT_H2") == 0){
+        font_data = _FONT_H2;
+        font_width = get_font_width("FONT_H2");
+    }else if(strcmp(font_style, "FONT_H3") == 0){
+        font_data = _FONT_H3;
+        font_width = get_font_width("FONT_H3");
+    }else if(strcmp(font_style, "FONT_H4") == 0){
+        font_data = _FONT_H4;
+        font_width = get_font_width("FONT_H4");
+    }else if(strcmp(font_style, "FONT_H5") == 0){
+        font_data = _FONT_H5;
+        font_width = get_font_width("FONT_H5");
+    }else if(strcmp(font_style, "FONT_H6") == 0){
+        font_data = _FONT_H6;
+        font_width = get_font_width("FONT_H6");
+    }
+
     uint16_t x, y;
     PGM_P fdata; 
     uint8_t bits, mask;
-    uint16_t sc=display.x, ec=display.x + (sizeof(FONT_P)/VALID_ASCII_COUNT -1), sp=display.y, ep=display.y + 7;
+    uint16_t sc=display.x, ec=display.x + (font_width -1), sp=display.y, ep=display.y + 7;
 
     /* Do not overwrite the status bar */
     if(display.y >= ((SCREEN_DEMENSION_Y - STATUS_BAR_HEIGHT)-6)){
@@ -234,7 +277,7 @@ void display_char(char c) {
     }
 
     if (c < 32 || c > 126) return;
-    fdata = (c - ' ')* (sizeof(FONT_P)/VALID_ASCII_COUNT) + font_style;
+    fdata = (c - ' ')* (font_width) + font_data;
     write_cmd(PAGE_ADDRESS_SET);
     write_data16(sp);
     write_data16(ep);
@@ -256,7 +299,7 @@ void display_char(char c) {
     for(y=sp; y<=ep; y++)
         write_data16(display.background);
 
-    display.x += (sizeof(FONT_P)/VALID_ASCII_COUNT +1);
+    display.x += (font_width +1);
     //if (display.x >= display.width) { display.x=0; display.y+=8; }
 }
 

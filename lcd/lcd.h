@@ -1,30 +1,33 @@
 /*  Author: Steve Gunn
  * Licence: This work is licensed under the Creative Commons Attribution License.
  *           View this license at http://creativecommons.org/about/licenses/
+ *
+ *  
+ *  - Jan 2015  Modified for LaFortuna (Rev A, black edition) [KPZ]
  */
- 
+
 #include <avr/io.h>
 #include <stdint.h>
 #include "svgrgb565.h"
 
-#define LCDWIDTH	240
-#define LCDHEIGHT	320
+#define LCDWIDTH    240
+#define LCDHEIGHT   320
 
 typedef enum {North, West, South, East} orientation;
 
 typedef struct {
-	uint16_t width, height;
-	orientation orient;
-	uint16_t x, y;
-	uint16_t foreground, background;
+    uint16_t width, height;
+    orientation orient;
+    uint16_t x, y;
+    uint16_t foreground, background;
 } lcd;
 
 extern lcd display;
 
 typedef struct {
-	uint16_t left, right;
-	uint16_t top, bottom;
-} rectangle;	
+    uint16_t left, right;
+    uint16_t top, bottom;
+} rectangle;    
 
 void init_lcd();
 void lcd_brightness(uint8_t i);

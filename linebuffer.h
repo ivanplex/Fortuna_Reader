@@ -10,7 +10,7 @@ volatile uint16_t line_compiled = 0;
 volatile uint16_t line_in_file = 0;
 
 
-uint8_t char_width = 6; //5 for the character + 1 for space between characters
+uint8_t char_width = 9; //5 for the character + 1 for space between characters
 
 void forceleft();
 void display_word(char *str);
