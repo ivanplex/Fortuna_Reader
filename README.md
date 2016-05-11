@@ -16,13 +16,14 @@
 
 This allows user to configure most of the visual effects. These configurations are stored in the `config.h` file.
 
-	Turning ON/OFF Scroll Bar
-	#define SCROLLBAR 		ON
+```C
+//Turning ON/OFF Scroll Bar
+#define SCROLLBAR 		ON
 
-	Changing Default Foreground/Background Color
-	#define DEFAULT_FOREGROUND_COLOR BLACK
-	#define DEFAULT_BACKGROUND_COLOR WHITE
-	
+//Changing Default Foreground/Background Color
+#define DEFAULT_FOREGROUND_COLOR BLACK
+#define DEFAULT_BACKGROUND_COLOR WHITE
+```
 
 
 ### Dynamic Scroll Bar
