@@ -14,7 +14,7 @@
 
 ### Modular Design 
 
-This allows user to configure most of the visual effects. These configurations are stored in the `config.h` file.
+This allows user to configure most of the visual effects. These configurations are stored in the `config.h` file. Below are some of the highlights.
 
 ```C
 //Turning ON/OFF Scroll Bar
@@ -23,6 +23,16 @@ This allows user to configure most of the visual effects. These configurations a
 //Changing Default Foreground/Background Color
 #define DEFAULT_FOREGROUND_COLOR BLACK
 #define DEFAULT_BACKGROUND_COLOR WHITE
+
+//Status Bar Setting
+#define STATUS_BAR_HEIGHT 10
+#define STATUS_BAR_BACKGROUND_COLOR PURPLE
+#define STATUS_BAR_FOREGROUND_COLOR WHITE
+
+.
+.
+.
+//and many more...
 ```
 
 
