@@ -16,6 +16,8 @@
 	
 Depending on the size of your file, the side scrolling bar (in RED) will adjust its size to best represnet your location on page.
 
+<img src="https://raw.githubusercontent.com/ivanplex/Fortuna_Reader/master/screen_shot/SMALL_PAGE.jpg" style="width: 250px;"/>
+
 ![alt tag](https://raw.githubusercontent.com/ivanplex/Fortuna_Reader/master/screen_shot/SMALL_PAGE.jpg)
 
 ![alt tag](https://raw.githubusercontent.com/ivanplex/Fortuna_Reader/master/screen_shot/LARGE_PAGE.jpg)
