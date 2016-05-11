@@ -5,12 +5,13 @@
 
 1. Modular Design
 2. Support multi fonts
-3. Support Quick Scrolling
-4. Line wrap post processing
-5. Footer ready for Status display
-6. Dynamic Scroll Bar
-7. Text Styling
-8. Minimal RAM Usage (>6%)
+3. Change of style
+4. Support Quick Scrolling
+5. Line wrap post processing
+6. Footer ready for Status display
+7. Dynamic Scroll Bar
+8. Text Styling
+9. Minimal RAM Usage (>6%)
 
 ### Modular Design 
 
@@ -29,10 +30,8 @@ This allows user to configure most of the visual effects. These configurations a
 #define STATUS_BAR_BACKGROUND_COLOR PURPLE
 #define STATUS_BAR_FOREGROUND_COLOR WHITE
 
-.
-.
-.
-//and many more...
+...
+//and many more
 ```
 
 ### Support multi fonts
@@ -43,13 +42,13 @@ To change the appearence of a font type:
 
 1. Download a hexadecimal font file
 2. Move the `.h` file into `/lcd/fonts/<FONT>.h`
-3. Copy the name of the font array to replace the current font array mapped. (EG. replace `font5x7` to `my_facy_font`)
+3. Copy the name of the font array to replace the current font array mapped. (EG. replace `font5x7` with `my_facy_font`)
 4. Update the font width (in pixels) (E.g FONT_H1_WIDTH)
 5. Update the color of the font (E.g FONT_H1_COLOR)
 
 ```C
-#define _FONT_P				font5x7		//Normal Paragraph Font
-#define _FONT_BOLD			hunter		//Bold Font
+#define _FONT_P					font5x7		//Normal Paragraph Font
+#define _FONT_BOLD				hunter		//Bold Font
 #define _FONT_H1				font5x7
 #define _FONT_H2				font5x7
 #define _FONT_H3				font5x7
@@ -76,13 +75,26 @@ To change the appearence of a font type:
 #define FONT_H6_COLOR				PURPLE
 ```
 
+### Change of style
+
+Similar to HTML, you can define a particular style for an entire paragraph. However you can also change the style of your sentances whenever you want. 
+
+In order to reduce the amount of memory usage, we have introduced a basic syntax for style change. These syntax can be introduced in your file data and it will be automatically detected.
+
+To change the FOREGROUND:
+
+	^f----
+
+		The `----` represent the hexadecimal representation of the desired color, for example to change the foreground color to RED: `^fF800`
+
 ### Dynamic Scroll Bar
 	
 Depending on the size of your file, the side scrolling bar (in RED) will adjust its size to best represnet your location on page.
 
-![alt tag](https://raw.githubusercontent.com/ivanplex/Fortuna_Reader/master/screen_shot/SMALL_PAGE.jpg)
+| Smaller Page | Larger Page |
+--- | --- | ---
 
-![alt tag](https://raw.githubusercontent.com/ivanplex/Fortuna_Reader/master/screen_shot/LARGE_PAGE.jpg)
+![alt tag](https://raw.githubusercontent.com/ivanplex/Fortuna_Reader/master/screen_shot/SMALL_PAGE.jpg) | ![alt tag](https://raw.githubusercontent.com/ivanplex/Fortuna_Reader/master/screen_shot/LARGE_PAGE.jpg)
 
 
 ### End of file
