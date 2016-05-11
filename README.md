@@ -6,12 +6,12 @@
 1. Modular Design
 2. Support multi fonts
 3. Change of style
-4. Support Quick Scrolling
+4. Minimal RAM Usage (>6%)
 5. Line wrap post processing
 6. Footer ready for Status display
 7. Dynamic Scroll Bar
 8. Text Styling
-9. Minimal RAM Usage (>6%)
+9. Support Quick Scrolling
 
 ### Modular Design 
 
@@ -96,16 +96,24 @@ Usage | Definition | Value | Value Length | Complete Example | Explanation
 
 **Example:**
 
-	^wB Hello World! \n ^wP Welcome to my homepage. \n ^w3 This is where I spend most of my time
+	^wB Hello World! \n ^wP Welcome to my homepage. \n ^w3 ^fF800 This is where I spend most of my time
+
+** It treats syntax as normal words so it requires a proper spacing between them **
+
+
+### Minimal RAM Usage (>6%)
+
+In order to maximize the usability of this library, we tried to keep the RAM usage as low as possible. Previously in section **Change of style** we briefly mentioned about our dedication to minimize the amount of memory usage. 
+
+Your defined display string utilizes the Flash memory in order to minimize the RAM usage. This allow developers to work freely on the remaining large portion of the RAM. Our typical RAM usage is lower than **6%**, leaving 94% of the memory available.
 
 ### Dynamic Scroll Bar
 	
 Depending on the size of your file, the side scrolling bar (in RED) will adjust its size to best represnet your location on page.
 
-Smaller Page | Larger Page
---- | ---
+![alt tag](https://raw.githubusercontent.com/ivanplex/Fortuna_Reader/master/screen_shot/SMALL_PAGE.jpg)
 
-![alt tag](https://raw.githubusercontent.com/ivanplex/Fortuna_Reader/master/screen_shot/SMALL_PAGE.jpg) | ![alt tag](https://raw.githubusercontent.com/ivanplex/Fortuna_Reader/master/screen_shot/LARGE_PAGE.jpg)
+![alt tag](https://raw.githubusercontent.com/ivanplex/Fortuna_Reader/master/screen_shot/LARGE_PAGE.jpg)
 
 
 ### End of file
