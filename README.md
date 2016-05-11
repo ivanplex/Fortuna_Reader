@@ -3,13 +3,27 @@
 
 ## Features
 
-1. Dynamic Scroll Bar
-2. Support Quick Scrolling
-3. Line wrap post processing
-4. Footer ready for Status display
-5. Support multi fonts
-6. Text Styling
-7. Minimal RAM Usage (>6%)
+1. Modular Design
+2. Support multi fonts
+3. Support Quick Scrolling
+4. Line wrap post processing
+5. Footer ready for Status display
+6. Dynamic Scroll Bar
+7. Text Styling
+8. Minimal RAM Usage (>6%)
+
+### Modular Design 
+
+This allows user to configure most of the visual effects. These configurations are stored in the `config.h` file.
+
+	Turning ON/OFF Scroll Bar
+	#define SCROLLBAR 		ON
+
+	Changing Default Foreground/Background Color
+	#define DEFAULT_FOREGROUND_COLOR BLACK
+	#define DEFAULT_BACKGROUND_COLOR WHITE
+	
+
 
 ### Dynamic Scroll Bar
 	
