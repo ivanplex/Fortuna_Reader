@@ -40,6 +40,7 @@ This allows user to configure most of the visual effects. These configurations a
 Modelling a HTML webpage, we have predefined some of the common fonts in the library. Again these fonts could be change in the `config.h`
 
 To change the appearence of a font type:
+
 1. Download a hexadecimal font file
 2. Move the `.h` file into `/lcd/fonts/<FONT>.h`
 3. Copy the name of the font array to replace the current font array mapped. (EG. replace `font5x7` to `my_facy_font`)
