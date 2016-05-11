@@ -87,11 +87,11 @@ The syntax is defined as such:
 
 	//Definition immidiately followed by Value
 
-Usage | Definition | Value | Example
---- | --- | --- | ---
-**Change of foreground** | `^f` | *Last 4 digit of 16-bit RGB* | `^fF800`
-**Change of background** | `^b` | *Last 4 digit of 16-bit RGB* | `^b001F`
-**Change of font type** | `^w` | *P,B,1,2,3,4,5,6* | `^wB`
+Usage | Definition | Value | Value Length | Complete Example | Explanation
+--- | --- | --- | --- | --- | ---
+**Change of foreground** | `^f` | *Last 4 digit of 16-bit RGB* | 4 | `^fF800` | foreground to red
+**Change of background** | `^b` | *Last 4 digit of 16-bit RGB* | 4 | `^b001F` | background to blue
+**Change of font type** | `^w` | *P,B,1,2,3,4,5,6* | 1 | `^wB` | Change to Bold
 
 
 To change the FOREGROUND:
