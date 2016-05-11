@@ -16,13 +16,13 @@
 	
 	Depending on the size of your file, the side scrolling bar (in RED) will adjust its size to best represnet your location on page.
 
-![](./screen_shot/SMALL_PAGE.jpg = 250x)
+![alt tag](https://raw.githubusercontent.com/ivanplex/Fortuna_Reader/master/screen_shot/SMALL_PAGE.jpg)
 
-![](./screen_shot/LARGE_PAGE.jpg = 250x)
+![alt tag](https://raw.githubusercontent.com/ivanplex/Fortuna_Reader/master/screen_shot/LARGE_PAGE.jpg)
 
 
 ### End of file
 
 	At the end of the file, a yellow bar will appear indicating the end of file
 
-![](./screen_shot/END_OF_FILE.jpg = 250x)
+![alt tag](https://raw.githubusercontent.com/ivanplex/Fortuna_Reader/master/screen_shot/END_OF_FILE.jpg)
