@@ -81,6 +81,19 @@ Similar to HTML, you can define a particular style for an entire paragraph. Howe
 
 In order to reduce the amount of memory usage, we have introduced a basic syntax for style change. These syntax can be introduced in your file data and it will be automatically detected.
 
+The syntax is defined as such:
+
+	<Definition><Value>
+
+	//Definition immidiately followed by Value
+
+Usage | Definition | Value | Example
+--- | --- | --- | ---
+**Change of foreground** | `^f` | *Last 4 digit of 16-bit RGB* | `^fF800`
+**Change of background** | `^b` | *Last 4 digit of 16-bit RGB* | `^b001F`
+**Change of font type** | `^w` | *P,B,1,2,3,4,5,6* | `^wB`
+
+
 To change the FOREGROUND:
 
 	^f----
@@ -91,8 +104,8 @@ To change the FOREGROUND:
 	
 Depending on the size of your file, the side scrolling bar (in RED) will adjust its size to best represnet your location on page.
 
-| Smaller Page | Larger Page |
---- | --- | ---
+Smaller Page | Larger Page
+--- | ---
 
 ![alt tag](https://raw.githubusercontent.com/ivanplex/Fortuna_Reader/master/screen_shot/SMALL_PAGE.jpg) | ![alt tag](https://raw.githubusercontent.com/ivanplex/Fortuna_Reader/master/screen_shot/LARGE_PAGE.jpg)
 
