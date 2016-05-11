@@ -1,22 +1,19 @@
 # Fortuna_Reader
 
 
-
-> Dynamic Scroll Bar
-> Support Quick Scrolling
-> Line wrap post processing
-> Footer ready for Status display
-> Support multi fonts
-> Text Styling
-> Minimal RAM Usage (>6%)
-
 ## Features
+
+1. Dynamic Scroll Bar
+2. Support Quick Scrolling
+3. Line wrap post processing
+4. Footer ready for Status display
+5. Support multi fonts
+6. Text Styling
+7. Minimal RAM Usage (>6%)
 
 ### Dynamic Scroll Bar
 	
 Depending on the size of your file, the side scrolling bar (in RED) will adjust its size to best represnet your location on page.
-
-<img src="https://raw.githubusercontent.com/ivanplex/Fortuna_Reader/master/screen_shot/SMALL_PAGE.jpg" style="width: 250px;"/>
 
 ![alt tag](https://raw.githubusercontent.com/ivanplex/Fortuna_Reader/master/screen_shot/SMALL_PAGE.jpg)
 
