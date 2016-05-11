@@ -94,11 +94,9 @@ Usage | Definition | Value | Value Length | Complete Example | Explanation
 **Change of font type** | `^w` | *P,B,1,2,3,4,5,6* | 1 | `^wB` | Change to Bold
 
 
-To change the FOREGROUND:
+**Example:**
 
-	^f----
-
-		The `----` represent the hexadecimal representation of the desired color, for example to change the foreground color to RED: `^fF800`
+	^wB Hello World! \n ^wP Welcome to my homepage. \n ^w3 This is where I spend most of my time
 
 ### Dynamic Scroll Bar
 	
