@@ -47,3 +47,4 @@ void display_backspace(void);
 void drawfooter();
 void clear_scroll_area();
 uint16_t get_y_position();
+void move_to_footer();

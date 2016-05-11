@@ -12,14 +12,16 @@
 #include "ili934x.h"
 #include "lcd.h"
 #include "config.h"
+#include "footer.h"
+
 
 /* Fonts */
 #include "font5x7.h"
 #include "hunter.h"
 
-lcd display;
-
 char*    font_style = FONT_P;
+
+lcd display;
 
 void init_lcd() {
     /* Enable extended memory interface with 10 bit addressing */
@@ -192,8 +194,9 @@ void clear_screen() {
 void clear_scroll_area() {
     display.x = 0;
     display.y = 0;
-    rectangle r = {0, display.width-1, 0, ((SCREEN_DEMENSION_Y - STATUS_BAR_HEIGHT)-1)};
+    rectangle r = {0, display.width-1, 0, (SCREEN_DEMENSION_Y - STATUS_BAR_HEIGHT)};
     fill_rectangle(r, display.background);
+    display_color(DEFAULT_FOREGROUND_COLOR, DEFAULT_BACKGROUND_COLOR);
 }
 
 void forceleft(){
@@ -201,15 +204,9 @@ void forceleft(){
     return;
 }
 
-void drawfooter(){
-    rectangle r = {0, display.width-1, (SCREEN_DEMENSION_Y - STATUS_BAR_HEIGHT), display.height-1};
-    fill_rectangle(r, STATUS_BAR_BACKGROUND_COLOR);
-}
 
-void move_to_footer(){
-    display.x = 0;
-    display.y = 225;
-}
+
+
 
 uint16_t get_y_position(){
     return display.y;
@@ -220,7 +217,7 @@ void display_char(char c) {
     uint16_t x, y;
     PGM_P fdata; 
     uint8_t bits, mask;
-    uint16_t sc=display.x, ec=display.x + 4, sp=display.y, ep=display.y + 7;
+    uint16_t sc=display.x, ec=display.x + (sizeof(FONT_P)/VALID_ASCII_COUNT -1), sp=display.y, ep=display.y + 7;
 
     /* Do not overwrite the status bar */
     if(display.y >= ((SCREEN_DEMENSION_Y - STATUS_BAR_HEIGHT)-6)){
@@ -237,7 +234,7 @@ void display_char(char c) {
     }
 
     if (c < 32 || c > 126) return;
-    fdata = (c - ' ')*5 + font_style;
+    fdata = (c - ' ')* (sizeof(FONT_P)/VALID_ASCII_COUNT) + font_style;
     write_cmd(PAGE_ADDRESS_SET);
     write_data16(sp);
     write_data16(ep);
@@ -259,7 +256,7 @@ void display_char(char c) {
     for(y=sp; y<=ep; y++)
         write_data16(display.background);
 
-    display.x += 6;
+    display.x += (sizeof(FONT_P)/VALID_ASCII_COUNT +1);
     //if (display.x >= display.width) { display.x=0; display.y+=8; }
 }
 

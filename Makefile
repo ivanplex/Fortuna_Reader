@@ -45,7 +45,9 @@ upld: $(BUILD_DIR)/main.hex
 	$(info =========== ${BOARD} =============)
 	dfu-programmer $(MCU) erase
 	dfu-programmer $(MCU) flash $(BUILD_DIR)/main.hex
-	dfu-programmer $(MCU) start
+	dfu-programmer $(MCU) reset
+	
+	
 
 prom: $(BUILD_DIR)/main.eep upld
 	$(info ======== EEPROM: ${BOARD} ========)

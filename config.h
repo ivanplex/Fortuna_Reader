@@ -10,11 +10,19 @@
 
 #define END_OF_FILE_Y_POSITION 210
 
+/* Status Bar */
 #define STATUS_BAR_HEIGHT 10
 #define STATUS_BAR_BACKGROUND_COLOR PURPLE
 #define STATUS_BAR_FOREGROUND_COLOR WHITE
 
+/* END OF FILE */
+#define END_OF_FILE_FOREGROUND_COLOR BLACK
+#define END_OF_FILE_BACKGROUND_COLOR ORANGE
+
 /* Word Styling */
+#define DEFAULT_FOREGROUND_COLOR BLACK
+#define DEFAULT_BACKGROUND_COLOR WHITE
+
 #define STYLE_CHANGE_HEADER '^'		//Indicator for change of style
 #define COMMAND_LENGTH_MIN	4
 #define FOREGROUND_COMMAND 'f'		//Indicator for change of foreground
@@ -22,7 +30,18 @@
 #define FONT_COMMAND	   'w'		//Indicator for change of font
 
 #define FONT_P				font5x7		//Normal Paragraph Font
-#define FONT_bold			hunter		//Bold Font
+#define FONT_BOLD			hunter		//Bold Font
+#define FONT_H1				font5x7
+#define FONT_H2				font5x7
+#define FONT_H3				font5x7
+#define FONT_H4				font5x7
+#define FONT_H5				font5x7
+#define FONT_H6				font5x7
+
+#define FONT_HEIGHT			8
+
+#define NUMBER_OF_FONT_STYLE 8
+#define VALID_ASCII_COUNT	95		//Number of ASCII characters stored in each font file
 
 /* Scroll Bar */
 #define SCROLLBAR 		ON
@@ -32,8 +51,6 @@
 
 /* Rotary */
 #define STEP_DELAY_MS 60
-
-
 
 
 

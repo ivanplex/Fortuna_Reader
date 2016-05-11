@@ -6,7 +6,8 @@
 
 
 volatile uint16_t line_skip = 0;
-volatile uint16_t line_compiled = 0;
+volatile uint16_t line_compiled = 0; 
+volatile uint16_t line_in_file = 0;
 
 
 uint8_t char_width = 6; //5 for the character + 1 for space between characters
@@ -45,11 +46,13 @@ void buffer_aline(char *str){
             current_line_length = 0;    //Reset current line length
             word_width = 0;
             line_compiled++;
+            line_in_file++;
         }else if(((current_line_length+word_width) > SCREEN_DEMENSION_X) && line_skip > 0){
         	line_skip--;
         	formattedLine[0] = '\0';
         	current_line_length = 0;    //Reset current line length
             word_width = 0;
+            line_in_file++;
         }
 
         if(!style_change(pch)){
@@ -71,11 +74,13 @@ void buffer_aline(char *str){
         current_line_length = 0;    //Reset current line length
         word_width = 0;
         line_compiled++;
+        line_in_file++;
     }else if(line_skip > 0){
     	line_skip--;
     	formattedLine[0] = '\0';
     	current_line_length = 0;    //Reset current line length
         word_width = 0;
+        line_in_file++;
     }
     forceleft();
     //display_char('\n');
