@@ -1,17 +1,24 @@
 # Fortuna_Reader
 
+Fortuna_Reader is designed to read files, supporting large documents by scrolling and color display! It's design as a better looking document reader!
+
+## Usage
+
+1. Open `storage.h`
+2. Replace the `html[]` array value with your desired content
+3. Run 'make'
+4. (Optional) Depending on the version of your DFU-programmer, you might need to manually unplug/re-plug your La-Fortuna. Especially if you observe any unexpected behaviour.
 
 ## Features
 
 1. Modular Design
 2. Support multi fonts
-3. Change of style
+3. Text Styling
 4. Minimal RAM Usage (>6%)
 5. Line wrap post processing
 6. Footer ready for Status display
 7. Dynamic Scroll Bar
-8. Text Styling
-9. Support Quick Scrolling
+8. Support Quick Scrolling
 
 ### Modular Design 
 
@@ -75,7 +82,7 @@ To change the appearence of a font type:
 #define FONT_H6_COLOR				PURPLE
 ```
 
-### Change of style
+### Text Styling
 
 Similar to HTML, you can define a particular style for an entire paragraph. However you can also change the style of your sentances whenever you want. 
 
@@ -98,7 +105,7 @@ Usage | Definition | Value | Value Length | Complete Example | Explanation
 
 	^wB Hello World! \n ^wP Welcome to my homepage. \n ^w3 ^fF800 This is where I spend most of my time
 
-** It treats syntax as normal words so it requires a proper spacing between them **
+**Syntax are treated as normal words so it requires a proper spacing between them!!**
 
 
 ### Minimal RAM Usage (>6%)
@@ -115,6 +122,12 @@ Depending on the size of your file, the side scrolling bar (in RED) will adjust 
 
 ![alt tag](https://raw.githubusercontent.com/ivanplex/Fortuna_Reader/master/screen_shot/LARGE_PAGE.jpg)
 
+
+### Line wrap post processing
+
+We tried to make line wrapping as bueatiful as possible. This meant no words should be broken into two parts due to the size of the screen. In order to preserve the flexibility to change font styles, line wrapping is done at the very end of the precess. This ensures lines to be wrapped accurately. 
+
+Example: 
 
 ### End of file
 
