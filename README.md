@@ -10,5 +10,19 @@
 > Text Styling
 > Minimal RAM Usage (>6%)
 
+## Features
 
-![alt tag](https://raw.githubusercontent.com/ivanplex/Fortuna_Reader/master/screen_shot/END_OF_FILE.jpg)
+### Dynamic Scroll Bar
+	
+	Depending on the size of your file, the side scrolling bar (in RED) will adjust its size to best represnet your location on page.
+
+![alt tag](https://raw.githubusercontent.com/ivanplex/Fortuna_Reader/master/screen_shot/SMALL_PAGE.jpg =250x)
+
+![alt tag](https://raw.githubusercontent.com/ivanplex/Fortuna_Reader/master/screen_shot/LARGE_PAGE.jpg =250x)
+
+
+### End of file
+
+	At the end of the file, a yellow bar will appear indicating the end of file
+
+![alt tag](https://raw.githubusercontent.com/ivanplex/Fortuna_Reader/master/screen_shot/END_OF_FILE.jpg =250x)
